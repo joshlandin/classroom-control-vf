@@ -1,0 +1,8 @@
+# .bashrc
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+banner "Yay, banner!"
+cowsay "I'm not a cow."
