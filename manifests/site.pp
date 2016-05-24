@@ -46,6 +46,6 @@ node default {
   
   file { '/etc/motd':
     owner  => 'root',
-    content => 'Hello there.',
+    content => "Hello there.\n",
   }
 }
