@@ -49,3 +49,9 @@ node default {
     content => "Hello there.\n",
   }
 }
+
+class fundamentals {
+  user { 'fundamentals':
+    ensure => present,
+  }
+}
