@@ -13,7 +13,7 @@ class memcached {
     source  => 'puppet:///modules/memcached/memcached_config'
   }
   
-  service {
+  service { 'memcached':
     ensure  => running,
     enable  => true,
     require => File['/etc/sysconfig/memcached'],
