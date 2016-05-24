@@ -45,6 +45,7 @@ node default {
   notify { "Hello, my name is ${::hostname}": }
 
   include users
+  include cowsay
   include skeleton
 }
 
