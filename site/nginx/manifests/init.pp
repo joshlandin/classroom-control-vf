@@ -1,33 +1,65 @@
 class nginx {
-  $docroot = '/var/www'
-  blockdir = '/etc/nginx/conf.d'
-  
+
+  $port        = 80
+  $package     = 'root',
+  $owner       = 'root',
+  $group       = 'root',
+  $docroot     = '/var/www'
+  $logsdir     = '/var/log/nginx'
+  $blockdir    = '/etc/nginx/conf.d',
+  $confdir     = '/etc/nginx',
+  $serviceuser = 'nginx',
+
+  case $::osfamily {
+    'redhat': {
+    }
+    'debian': {
+      $serviceuser = 'www-data',
+    }
+    'windows': {
+      $package     = 'nginx-service',
+      $owner       = 'Administrator',
+      $group       = 'Administrators',
+      $basedir     = 'C:/ProgramData/nginx';
+      $docroot     = "${basedir}/html"
+      $logsdir     = "${basedir}/logs"
+      $blockdir    = "${basedir}/conf.d",
+      $confdir     = "${basedir}",
+      $serviceuser = 'nobody',
+    }
+    default: {
+      fail("Operating system ${::osfamily} is not supported.")
+    }
+  }
+
   package { 'nginx':
     ensure => present,
   }
 
   File {
-    owner => 'root',
-    group => 'root',
+    owner => $owner,
+    group => $group,
     mode  => '0664',
   }
   
-  file { '/etc/nginx/nginx.conf':
+  file { 'nginx-conf':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/nginx.conf',
+    path    => "${confdir}/nginx.conf",
+    source  => 'puppet:///modules/nginx/nginx.conf.erb',
   }
   
-  file { '/etc/nginx/conf.d/default.conf':
+  file { 'nginx-default-conf':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/default.conf',
+    path    => "${blockdir}/default.conf",
+    source  => 'puppet:///modules/nginx/default.conf.erb',
   }
   
-  file { '/var/www':
+  file { $docroot:
     ensure => directory,
-    mode    => '0755',
+    mode   => '0755',
   }
   
-  file { '/var/www/index.html':
+  file { "${docroot}/index.html":
     ensure => file,
     source => 'puppet:///modules/nginx/index.html',
   }
@@ -35,7 +67,10 @@ class nginx {
   service { 'nginx':
     ensure  => running,
     enable  => true,
-    require => [File['/etc/nginx/nginx.conf'],File['/etc/nginx/conf.d/default.conf']],
+    require => [ 
+      File['nginx-conf'], 
+      File['nginx-default-conf'], 
+    ],
   }
   
 }
