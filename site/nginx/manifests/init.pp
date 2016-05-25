@@ -47,14 +47,12 @@ class nginx {
     ensure  => file,
     path    => "${confdir}/nginx.conf",
     content => template('nginx/nginx.conf.erb'),
-    notify  => Service[$service],
   }
   
   file { 'nginx-default-conf':
     ensure  => file,
     path    => "${blockdir}/default.conf",
     content => template('nginx/default.conf.erb'),
-    notify  => Service[$service],
   }
   
   file { $docroot:
@@ -70,7 +68,12 @@ class nginx {
   service { $service:
     ensure  => running,
     enable  => true,
-    require => [ 
+    subscribe  => [
+      File['nginx-conf'], 
+      File['nginx-default-conf'], 
+    ],
+    require => [
+      Package[$package],
       File['nginx-conf'], 
       File['nginx-default-conf'], 
     ],
