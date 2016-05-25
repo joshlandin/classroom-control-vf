@@ -3,7 +3,7 @@ class nginx {
   $port        = 80
   $package     = 'root'
   $owner       = 'root'
-  $group       = 'root',
+  $group       = 'root'
   $docroot     = '/var/www'
   $logsdir     = '/var/log/nginx'
   $blockdir    = '/etc/nginx/conf.d'
