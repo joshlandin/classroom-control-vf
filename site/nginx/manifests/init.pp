@@ -32,7 +32,7 @@ class nginx {
     }
   }
 
-  package { 'nginx':
+  package { $package:
     ensure => present,
   }
 
