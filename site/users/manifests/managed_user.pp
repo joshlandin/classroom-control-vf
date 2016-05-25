@@ -3,24 +3,24 @@ define users::managed_user (
 ) {
 
   user { $title:
-    ensure => present,
-    home => "/home/${title}",
+    ensure     => present,
+    home       => "/home/${title}",
     managehome => true,
-    group => "${group}",
+    group      => $group,
   }
 
   file { "/home/${title}": 
     ensure => directory,
-    mode => '0660',
-    owner => $title,
-    group => $group,
+    mode   => '0660',
+    owner  => $title,
+    group  => $group,
   }
   
   file { "/home/${title}/.ssh": 
     ensure => directory,
-    mode => '0700',
-    owner => $title,
-    group => $group,
+    mode   => '0700',
+    owner  => $title,
+    group  => $group,
   }
   
 }
