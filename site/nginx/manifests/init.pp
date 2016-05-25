@@ -45,13 +45,13 @@ class nginx {
   file { 'nginx-conf':
     ensure  => file,
     path    => "${confdir}/nginx.conf",
-    source  => 'puppet:///modules/nginx/nginx.conf.erb',
+    content => template('nginx/nginx.conf.erb'),
   }
   
   file { 'nginx-default-conf':
     ensure  => file,
     path    => "${blockdir}/default.conf",
-    source  => 'puppet:///modules/nginx/default.conf.erb',
+    content => template('nginx/default.conf.erb'),
   }
   
   file { $docroot:
