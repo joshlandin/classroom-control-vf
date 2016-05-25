@@ -1,5 +1,6 @@
 class nginx {
   $docroot = '/var/www'
+  blockdir = '/etc/nginx/conf.d'
   
   package { 'nginx':
     ensure => present,
