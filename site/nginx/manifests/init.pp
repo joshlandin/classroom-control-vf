@@ -1,31 +1,31 @@
 class nginx {
 
   $port        = 80
-  $package     = 'root',
-  $owner       = 'root',
+  $package     = 'root'
+  $owner       = 'root'
   $group       = 'root',
   $docroot     = '/var/www'
   $logsdir     = '/var/log/nginx'
-  $blockdir    = '/etc/nginx/conf.d',
-  $confdir     = '/etc/nginx',
-  $serviceuser = 'nginx',
+  $blockdir    = '/etc/nginx/conf.d'
+  $confdir     = '/etc/nginx'
+  $serviceuser = 'nginx'
 
   case $::osfamily {
     'redhat': {
     }
     'debian': {
-      $serviceuser = 'www-data',
+      $serviceuser = 'www-data'
     }
     'windows': {
-      $package     = 'nginx-service',
-      $owner       = 'Administrator',
-      $group       = 'Administrators',
-      $basedir     = 'C:/ProgramData/nginx';
+      $package     = 'nginx-service'
+      $owner       = 'Administrator'
+      $group       = 'Administrators'
+      $basedir     = 'C:/ProgramData/nginx'
       $docroot     = "${basedir}/html"
       $logsdir     = "${basedir}/logs"
-      $blockdir    = "${basedir}/conf.d",
-      $confdir     = "${basedir}",
-      $serviceuser = 'nobody',
+      $blockdir    = "${basedir}/conf.d"
+      $confdir     = "${basedir}"
+      $serviceuser = 'nobody'
     }
     default: {
       fail("Operating system ${::osfamily} is not supported.")
