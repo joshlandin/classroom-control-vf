@@ -9,14 +9,14 @@ define users::managed_user (
     group => "${group}",
   }
 
-  file { "/home/${title}": {
+  file { "/home/${title}": 
     ensure => directory,
     mode => '0660',
     owner => $title,
     group => $group,
   }
   
-  file { "/home/${title}/.ssh": {
+  file { "/home/${title}/.ssh": 
     ensure => directory,
     mode => '0700',
     owner => $title,
