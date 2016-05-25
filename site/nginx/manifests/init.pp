@@ -1,13 +1,13 @@
 class nginx {
 
   $port        = 80
-  $package     = 'root'
+  $package     = 'nginx'
   $owner       = 'root'
   $group       = 'root'
   $docroot     = '/var/www'
-  $logsdir     = '/var/log/nginx'
-  $blockdir    = '/etc/nginx/conf.d'
   $confdir     = '/etc/nginx'
+  $blockdir    = '/etc/nginx/conf.d'
+  $logsdir     = '/var/log/nginx'
   $service     = 'nginx'
   $serviceuser = 'nginx'
 
@@ -18,14 +18,14 @@ class nginx {
       $serviceuser = 'www-data'
     }
     'windows': {
+      $basedir     = 'C:/ProgramData/nginx'
       $package     = 'nginx-service'
       $owner       = 'Administrator'
       $group       = 'Administrators'
-      $basedir     = 'C:/ProgramData/nginx'
       $docroot     = "${basedir}/html"
-      $logsdir     = "${basedir}/logs"
-      $blockdir    = "${basedir}/conf.d"
       $confdir     = "${basedir}"
+      $blockdir    = "${basedir}/conf.d"
+      $logsdir     = "${basedir}/logs"
       $serviceuser = 'nobody'
     }
     default: {
