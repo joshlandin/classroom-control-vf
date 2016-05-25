@@ -3,10 +3,7 @@ define users::managed_user (
 ) {
 
   user { $title:
-    ensure     => present,
-    home       => "/home/${title}",
-    managehome => true,
-    group      => $group,
+    ensure => present,
   }
 
   file { "/home/${title}": 
