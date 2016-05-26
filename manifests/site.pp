@@ -44,6 +44,9 @@ node default {
     $virtualType = capitalize($::virtual)
     notify { "Virtual machine type: ${virtualType}": }
   }
+  
+  $message = hiera('message');
+  notify { "Hiera message ${message}": }
 
 }
 
