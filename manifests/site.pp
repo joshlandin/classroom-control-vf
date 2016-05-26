@@ -45,7 +45,7 @@ node default {
     notify { "Virtual machine type: ${virtualType}": }
   }
   
-  $message = hiera('message');
+  $message = hiera('message','<none>');
   notify { "Hiera message ${message}": }
 
 }
