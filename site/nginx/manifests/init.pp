@@ -1,4 +1,6 @@
-class nginx {
+class nginx (
+  $root = '/var/www',
+){
 
   $port        = 80
   $package     = 'nginx'
